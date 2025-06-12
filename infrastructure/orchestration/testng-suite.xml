@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Flipkart Automation Suite" parallel="tests" thread-count="3">
+    <test name="Desktop Test">
+        <classes>
+            <class name="com.flipkart.tests.desktop.FlipkartDesktopTests"/>
+        </classes>
+    </test>
+
+    <test name="Mobile Test">
+        <classes>
+            <class name="com.flipkart.tests.mobile.FlipkartMobileTests"/>
+        </classes>
+    </test>
+
+    <test name="Responsive Test">
+        <classes>
+            <class name="com.flipkart.tests.responsive.FlipkartResponsiveTests"/>
+        </classes>
+    </test>
+</suite>

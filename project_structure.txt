@@ -1,0 +1,74 @@
+src
+├── index.css
+├── main
+│   └── java
+│       └── com
+│           └── flipkart
+│               ├── base
+│               │   ├── Base.java
+│               │   └── BaseTest.java
+│               ├── config
+│               │   └── ConfigReader.java
+│               ├── driver
+│               │   └── DriverManager.java
+│               ├── interfaces
+│               │   ├── desktop
+│               │   │   └── IWebHomeScreen.java
+│               │   ├── mobile
+│               │   │   ├── IMobileHomeScreen.java
+│               │   │   └── IWelcomeScreen.java
+│               │   └── responsive
+│               │       └── IResponsiveHomeScreen.java
+│               ├── listeners
+│               │   ├── RetryListener.java
+│               │   └── TestListener.java
+│               ├── screen
+│               │   └── ScreenFactory.java
+│               ├── screens
+│               │   ├── desktop
+│               │   │   └── DesktopHomePage.java
+│               │   ├── nativeMobile
+│               │   │   ├── MobileHomeScreen.java
+│               │   │   └── MobileWelcomeScreen.java
+│               │   └── responsive
+│               │       └── ResponsiveHomeScreen.java
+│               └── utils
+│                   ├── AllureUtils.java
+│                   ├── AssertionUtils.java
+│                   ├── DeviceUtils.java
+│                   ├── EmailUtils.java
+│                   ├── LogUtils.java
+│                   ├── PlatformManager.java
+│                   ├── PlatformType.java
+│                   ├── RetryAnalyzer.java
+│                   ├── ScreenshotUtils.java
+│                   └── WaitUtils.java
+└── test
+    ├── java
+    │   └── com
+    │       └── flipkart
+    │           └── tests
+    │               ├── desktop
+    │               │   └── FlipkartDesktopTests.java
+    │               ├── mobile
+    │               │   └── FlipkartMobileTests.java
+    │               └── responsive
+    │                   └── FlipkartResponsiveTests.java
+    └── resources
+        ├── allure.properties
+        ├── config.properties
+        ├── log4j2.xml
+        └── testng.xml
+test  [error opening dir]
+infrastructure
+├── ci
+│   ├── Jenkinsfile
+│   └── github-actions.yml
+├── execution-environment
+│   ├── devices-config.json
+│   ├── docker-compose.yml
+│   └── start-grid.sh
+└── orchestration
+    └── testng-suite.xml
+
+32 directories, 39 files

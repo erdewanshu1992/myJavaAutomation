@@ -1,0 +1,21 @@
+{
+  "android_devices": [
+    {
+      "deviceName": "Pixel_6_API_33",
+      "platformVersion": "13.0",
+      "udid": "emulator-5554"
+    },
+    {
+      "deviceName": "Samsung_Galaxy_S22",
+      "platformVersion": "13.0",
+      "udid": "emulator-5556"
+    }
+  ],
+  "ios_devices": [
+    {
+      "deviceName": "iPhone 16 Pro",
+      "platformVersion": "17.4",
+      "udid": "73628E37-F248-4CD8-960F-ED77B6101F82"
+    }
+  ]
+}

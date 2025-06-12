@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FlipkartUnifiedAutomationSuite" parallel="classes" thread-count="1">
+    
+    <parameter name="browser" value="chrome"/>
+    <parameter name="environment" value="qa"/>
+    
+    <listeners>
+        <listener class-name="com.flipkart.listeners.TestListener"/>
+        <listener class-name="com.flipkart.listeners.RetryListener"/>
+    </listeners>
+    
+    <!-- Native Mobile App Tests -->
+    <test name="NativeMobileTests" preserve-order="true">
+        <parameter name="platform" value="nativemobile"/>
+        <classes>
+            <class name="com.flipkart.tests.mobile.FlipkartMobileTests"/>
+        </classes>
+    </test>
+    
+    <!-- Responsive Web Tests -->
+    <test name="ResponsiveWebTests" preserve-order="true">
+        <parameter name="platform" value="responsive"/>
+        <classes>
+            <class name="com.flipkart.tests.responsive.FlipkartResponsiveTests"/>
+        </classes>
+    </test>
+    
+    <!-- Desktop Web Tests -->
+    <test name="DesktopWebTests" preserve-order="true">
+        <parameter name="platform" value="desktop"/>
+        <classes>
+            <class name="com.flipkart.tests.desktop.FlipkartDesktopTests"/>
+        </classes>
+    </test>
+    
+</suite>
