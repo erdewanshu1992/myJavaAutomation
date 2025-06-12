@@ -59,7 +59,6 @@ public abstract class Base {
         WebElement element = waitUtils.waitForElementToBeClickable(locator);
         element.click();
     }
-    
     /**
      * Click on web element with wait
      */
