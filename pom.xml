@@ -15,20 +15,21 @@
     <description>Comprehensive automation framework for Flipkart Android app testing</description>
 
     <properties>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release> <!-- 👈 Add this -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <selenium.version>4.33.0</selenium.version>
-        <appium.version>9.4.0</appium.version>
+        <selenium.version>4.35.0</selenium.version>
+        <appium.version>10.0.0</appium.version>
         <testng.version>7.10.2</testng.version>
         <allure.version>2.29.1</allure.version>
         <extentreports.version>5.1.1</extentreports.version>
         <jackson.version>2.19.0</jackson.version>
-        <apache.poi.version>5.2.4</apache.poi.version>
+        <apache.poi.version>5.4.1</apache.poi.version>
         <log4j.version>2.24.3</log4j.version>
         <java.mail.version>1.6.2</java.mail.version>
-        <webdrivermanager.version>6.1.0</webdrivermanager.version>
+        <webdrivermanager.version>6.3.2</webdrivermanager.version>
         <commons.io.version>2.19.0</commons.io.version>
         <aspectj.version>1.9.24</aspectj.version>
         <aspectjweaver.version>1.9.24</aspectjweaver.version>
@@ -36,27 +37,43 @@
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
         <allure.maven.plugin.version>2.12.0</allure.maven.plugin.version>
+        <cucumber.version>7.29.0</cucumber.version>
         
         <!-- Default platform - can be overridden -->
         <platform>responsive</platform>
     </properties>
 
     <dependencies>
-        <!-- Core Testing -->
+        <!-- Core Testing --> <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>${appium.version}</version>
         </dependency>
+
+        <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
+        </dependency>
+
+        <!-- Cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <!-- Reporting -->
@@ -92,11 +109,14 @@
             <artifactId>javax.mail</artifactId>
             <version>${java.mail.version}</version>
         </dependency>
+
+        <!-- WebDriverManager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -116,11 +136,13 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>

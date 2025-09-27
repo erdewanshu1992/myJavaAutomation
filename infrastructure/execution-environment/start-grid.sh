@@ -3,6 +3,7 @@
 echo "🚀 Starting Selenium Grid + Appium..."
 
 # Navigate to the docker-compose directory
+# shellcheck disable=SC2164
 cd "$(dirname "$0")"
 
 # Run containers in detached mode

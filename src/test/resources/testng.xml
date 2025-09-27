@@ -8,13 +8,16 @@
     <listeners>
         <listener class-name="com.flipkart.listeners.TestListener"/>
         <listener class-name="com.flipkart.listeners.RetryListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
     
     <!-- Native Mobile App Tests -->
     <test name="NativeMobileTests" preserve-order="true">
         <parameter name="platform" value="nativemobile"/>
         <classes>
-            <class name="com.flipkart.tests.mobile.FlipkartMobileTests"/>
+            <class name="com.flipkart.tests.mobile.FlipkartMobile3Tests"/>
+<!--            <class name="com.flipkart.tests.mobile.FlipkartMobileTests"/>-->
+<!--            <class name="com.flipkart.tests.mobile.FlipkartMobileTests"/>-->
         </classes>
     </test>
     
@@ -30,7 +33,10 @@
     <test name="DesktopWebTests" preserve-order="true">
         <parameter name="platform" value="desktop"/>
         <classes>
+<!--            <class name="com.flipkart.tests.desktop.BrowserContextTest"/>-->
             <class name="com.flipkart.tests.desktop.FlipkartDesktopTests"/>
+            <class name="com.flipkart.tests.desktop.SearchTest"/>
+<!--            <class name="com.flipkart.tests.desktop.GoogleSearchTest"/>-->
         </classes>
     </test>
     

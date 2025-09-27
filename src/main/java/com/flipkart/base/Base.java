@@ -5,14 +5,13 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.openqa.selenium.WebDriver;
 import java.time.Duration;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public abstract class Base {
     public abstract void performSearch(String searchTerm);
 
     /**
-     * Click on element with wait
+     * Click on an element with wait
      */
     @Step("Click on element: {locator}")
     protected void clickElement(By locator) {

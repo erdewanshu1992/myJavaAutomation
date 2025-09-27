@@ -3,11 +3,19 @@ package com.flipkart.screens.nativeMobile;
 import com.flipkart.base.Base;
 import com.flipkart.interfaces.mobile.IMobileHomeScreen;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
+
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Native Mobile Home Screen implementation
@@ -39,29 +47,35 @@ public class MobileHomeScreen extends Base implements IMobileHomeScreen {
     @Override
     @Step("Wait for home page to load")
     public void waitForPageToLoad() {
-        waitUtils.waitForElementToBeVisible(brandMallToggle);
-        waitUtils.waitForElementToBeVisible(categoriesTab);
+        // waitUtils.waitForElementToBeVisible(brandMallToggle);
+        // waitUtils.waitForElementToBeVisible(categoriesTab);
 
         try {
+            waitUtils.waitForElementToBeVisible(brandMallToggle);
+            waitUtils.waitForElementToBeVisible(categoriesTab);
             waitUtils.waitForElementToBeVisible(searchBoxHome);
         } catch (Exception e) {
             logger.error(" searchBox not visible within timeout: {}", e.getMessage());
         }
     }
 
-
     @Override
     @Step("Verify home page is loaded")
     public boolean isPageLoaded() {
-        boolean brandMall = isElementDisplayed(brandMallToggle);
-        boolean search = isElementDisplayed(searchBoxHome);
-        boolean category = isElementDisplayed(categoriesTab);
+        try {
+            boolean brandMall = isElementDisplayed(brandMallToggle);
+            boolean search = isElementDisplayed(searchBoxHome);
+            boolean category = isElementDisplayed(categoriesTab);
 
-        logger.info("BrandMall: {}, SearchBox: {}, CategoriesTab: {}", brandMall, search, category);
+            logger.info("BrandMall: {}, SearchBox: {}, CategoriesTab: {}", brandMall, search, category);
 
-        // return brandMall && search && category;
-        return brandMall && category;
+            return brandMall && category;
+        } catch (Exception e) {
+            logger.error("❌ Exception while verifying home page load: {}", e.getMessage());
+            return false;
+        }
     }
+
 
     @Override
     @Step("Search for '{searchTerm}' in mobile app")
@@ -161,4 +175,42 @@ public class MobileHomeScreen extends Base implements IMobileHomeScreen {
             logger.info("Pressed back button on mobile");
         }
     }
+
+//    @Step("Coordinate Tapping")
+//    public void tapAt(int x, int y, RemoteWebDriver driver) {
+//        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+//        Sequence tap = new Sequence(finger, 1);
+//        tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y));
+//        tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+//        tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+//        driver.perform(Arrays.asList(tap));
+//    }
+
+    @Step("Coordinate Tapping")
+    public void tapAt(int x, int y, AndroidDriver driver) {
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence tap = new Sequence(finger, 1);
+
+        tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y));
+        tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Arrays.asList(tap));
+    }
+
+    @Step("Swiping")
+    public void swipeHorizontal(int startX, int startY, int endX, int endY, RemoteWebDriver driver) {
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1);
+
+        swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY));
+        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(700), PointerInput.Origin.viewport(), endX, endY));
+        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(swipe));
+    }
+
+
+
 }
