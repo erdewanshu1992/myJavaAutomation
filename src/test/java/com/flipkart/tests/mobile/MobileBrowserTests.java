@@ -1,3 +1,5 @@
+package com.flipkart.tests.mobile;
+
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
