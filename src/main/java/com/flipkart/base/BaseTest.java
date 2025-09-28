@@ -6,12 +6,20 @@ import com.flipkart.listeners.TestListener;
 import com.flipkart.utils.AllureUtils;
 import com.flipkart.utils.PlatformManager;
 import com.flipkart.utils.ScreenshotUtils;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Attachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Unified base test class that provides common setup and teardown functionality
@@ -163,5 +171,89 @@ public abstract class BaseTest {
             System.setProperty("platform", platform);
             logger.info("🎯 Platform set from TestNG parameter: {}", platform);
         }
+    }
+
+    /**
+     * Data provider for JSON test data
+     */
+    @DataProvider(name = "jsonDataProvider")
+    public Object[][] jsonDataProvider(Method method) {
+        String fileName = getTestDataFileName(method);
+        List<Map<String, String>> testData = loadJsonData(fileName);
+        Object[][] data = new Object[testData.size()][1];
+        for (int i = 0; i < testData.size(); i++) {
+            data[i][0] = testData.get(i);
+        }
+        return data;
+    }
+
+    /**
+     * Data provider for CSV test data
+     */
+    @DataProvider(name = "csvDataProvider")
+    public Object[][] csvDataProvider(Method method) {
+        String fileName = getTestDataFileName(method);
+        List<Map<String, String>> testData = loadCsvData(fileName);
+        Object[][] data = new Object[testData.size()][1];
+        for (int i = 0; i < testData.size(); i++) {
+            data[i][0] = testData.get(i);
+        }
+        return data;
+    }
+
+    private String getTestDataFileName(Method method) {
+        // Extract filename from method name or use default
+        String methodName = method.getName();
+        if (methodName.contains("Login")) {
+            return "loginData.json";
+        } else if (methodName.contains("Search")) {
+            return "search.csv";
+        }
+        return "testdata.json"; // default
+    }
+
+    private List<Map<String, String>> loadJsonData(String fileName) {
+        List<Map<String, String>> data = new ArrayList<>();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String filePath = config.getTestDataPath() + fileName;
+            JsonNode rootNode = mapper.readTree(new java.io.File(filePath));
+
+            if (rootNode.isArray()) {
+                Iterator<JsonNode> elements = rootNode.elements();
+                while (elements.hasNext()) {
+                    JsonNode node = elements.next();
+                    Map<String, String> map = mapper.convertValue(node, Map.class);
+                    data.add(map);
+                }
+            }
+        } catch (IOException e) {
+            logger.error("Failed to load JSON test data: {}", fileName, e);
+        }
+        return data;
+    }
+
+    private List<Map<String, String>> loadCsvData(String fileName) {
+        List<Map<String, String>> data = new ArrayList<>();
+        try {
+            String filePath = config.getTestDataPath() + fileName;
+            java.io.BufferedReader reader = new java.io.BufferedReader(new FileReader(filePath));
+            String line = reader.readLine(); // Read header
+            if (line != null) {
+                String[] headers = line.split(",");
+                while ((line = reader.readLine()) != null) {
+                    String[] values = line.split(",");
+                    Map<String, String> map = new java.util.HashMap<>();
+                    for (int i = 0; i < headers.length && i < values.length; i++) {
+                        map.put(headers[i].trim(), values[i].trim());
+                    }
+                    data.add(map);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            logger.error("Failed to load CSV test data: {}", fileName, e);
+        }
+        return data;
     }
 }

@@ -41,7 +41,7 @@ public class ConfigReader {
     }
     
     /**
-     * Get property with system property override support
+     * Get property with system property override and environment variable support
      */
     private String getProperty(String key, String defaultValue) {
         // First check system properties (from -D arguments or TestNG parameters)
@@ -50,9 +50,23 @@ public class ConfigReader {
             logger.info("🔧 Using system property for {}: {}", key, systemValue);
             return systemValue;
         }
-        
+
         // Then check config file
         String configValue = properties.getProperty(key, defaultValue);
+
+        // Resolve environment variables if present (format: ${VAR_NAME})
+        if (configValue != null && configValue.startsWith("${") && configValue.endsWith("}")) {
+            String envVarName = configValue.substring(2, configValue.length() - 1);
+            String envValue = System.getenv(envVarName);
+            if (envValue != null && !envValue.trim().isEmpty()) {
+                logger.info("🔧 Using environment variable for {}: {}", key, "[RESOLVED]");
+                return envValue;
+            } else {
+                logger.warn("⚠️ Environment variable {} not found, using default value", envVarName);
+                return defaultValue;
+            }
+        }
+
         logger.info("🔧 Using config file property for {}: {}", key, configValue);
         return configValue;
     }

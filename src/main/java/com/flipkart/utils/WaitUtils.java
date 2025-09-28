@@ -92,4 +92,12 @@ public class WaitUtils {
         wait.until(webDriver -> ((org.openqa.selenium.JavascriptExecutor) webDriver)
                 .executeScript("return document.readyState").equals("complete"));
     }
+
+    public void waitForUrlToContain(String urlFragment) {
+        wait.until(ExpectedConditions.urlContains(urlFragment));
+    }
+
+    public void waitForUrlToBe(String url) {
+        wait.until(ExpectedConditions.urlToBe(url));
+    }
 }

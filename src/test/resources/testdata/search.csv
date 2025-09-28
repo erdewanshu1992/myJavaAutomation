@@ -1,0 +1,7 @@
+testCase,searchTerm,expectedResult
+Valid Search,laptop,Search results displayed
+Empty Search,,No results or error message
+Special Characters,laptop@123,Search results or sanitized input
+Long Search Term,very long search term with multiple words to test search functionality,Search results displayed
+Numeric Search,12345,Search results or no results
+Single Character,a,Search results displayed

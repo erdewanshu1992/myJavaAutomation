@@ -1,0 +1,26 @@
+[
+  {
+    "testCase": "Valid Login",
+    "username": "testuser@example.com",
+    "password": "TestPass123",
+    "expectedResult": "Login successful"
+  },
+  {
+    "testCase": "Invalid Username",
+    "username": "invalid@example.com",
+    "password": "TestPass123",
+    "expectedResult": "Invalid credentials"
+  },
+  {
+    "testCase": "Invalid Password",
+    "username": "testuser@example.com",
+    "password": "WrongPass",
+    "expectedResult": "Invalid credentials"
+  },
+  {
+    "testCase": "Empty Fields",
+    "username": "",
+    "password": "",
+    "expectedResult": "Please enter username and password"
+  }
+]
