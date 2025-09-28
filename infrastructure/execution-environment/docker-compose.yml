@@ -2,7 +2,7 @@ version: "3"
 services:
 
   selenium-hub:
-    image: selenium/hub:4.21.0
+    image: seleniarm/hub:latest
     container_name: selenium-hub
     ports:
       - "4442:4442"
@@ -10,7 +10,7 @@ services:
       - "4444:4444"
 
   chrome:
-    image: selenium/node-chrome:4.21.0
+    image: seleniarm/node-chromium:latest
     depends_on:
       - selenium-hub
     environment:
@@ -29,7 +29,3 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
       - /dev/kvm:/dev/kvm
-    environment:
-      - CONNECT_TO_GRID=true
-      - SELENIUM_HOST=selenium-hub
-      - SELENIUM_PORT=4444
